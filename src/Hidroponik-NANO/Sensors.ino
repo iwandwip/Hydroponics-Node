@@ -68,8 +68,8 @@ void Sensors::Debug() {
         if (millis() - dbgTmr >= 50) {
 
                 Serial.println("distance = " + String(distance));
-                Serial.println("tempC = " + String(tempC));
-                Serial.println("ph_act = " + String(ph_act));
+                Serial.println("tempC    = " + String(tempC));
+                Serial.println("ph_act   = " + String(ph_act));
 
                 dbgTmr = millis();
         }

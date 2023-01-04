@@ -4,7 +4,6 @@
 #include "Sys.h"
 
 void Start() {
-        // sens.Init();
         com.Init();
         server.connectToWiFi(
           "KASTARA GROUP INDONESIA",
@@ -26,15 +25,6 @@ void loop() {
         sys.Handler();
         com.Handler();
 
-        // float *datPtr = com.getUnoData();
-
-        // Serial.println("distance = " + String(datPtr[0]));
-        // Serial.println("ph_act = " + String(datPtr[1]));
-        // Serial.println("tempC = " + String(datPtr[2]));
-
-        // sens.Handler();
-        // sens.Debug();
-
-        // server.sendToFB(sens.getDataToFirebase(),
-        //                 sens.getAddressToFirebase());
+        server.sendToFB(com.getUnoData(),
+                        com.getAddressToFirebase());
 }

@@ -11,6 +11,7 @@ void Comms::Init() {
 
 void Comms::Handler() {
         if (nanoSerial.available()) {
+
                 char rxBuffer[250];
                 uint8_t rxBufferPtr = 0;
 
@@ -22,36 +23,29 @@ void Comms::Handler() {
                                 rxBuffer[rxBufferPtr++] = nanoSerial.read();
                                 if (rxBuffer[rxBufferPtr - 1] == '\n') break;
                         }
-
-                        rxBuffer[rxBufferPtr] = 0;
-                        char *data = rxBuffer;
-
-                        data = strchr(data, ':') + 1;
-                        (*this).distance = atof(data);
-                        Serial.println(data);
-                        // data = strchr(data, ':');
-                        // (*this).ph_act = atof(data);
-                        // Serial.println(ph_act);
-                        // data = strchr(data, ',') + 1;
-                        // (*this).tempC = atof(data);
-
-                        // Serial.println("distance = " + String(distance));
-                        // Serial.println("ph_act = " + String(ph_act));
-                        // Serial.println("tempC = " + String(tempC));
                 }
 
+                rxBuffer[rxBufferPtr] = 0;
+                char *data = rxBuffer;
 
-                if (millis() - comTmr >= COMM_INTERVAL) {
+                data = strchr(data, ':') + 1;
+                (*this).distance = atof(data);
+                data = strchr(data, ',') + 1;
+                (*this).ph_act = atof(data);
+                data = strchr(data, ',') + 1;
+                (*this).tempC = atof(data);
+        }
+        
+        if (millis() - comTmr >= COMM_INTERVAL) {
 
-                        // nanoSerial.print(":");
-                        // nanoSerial.print(data[0]);
-                        // nanoSerial.print(",");
-                        // nanoSerial.print(data[1]);
-                        // nanoSerial.print(",");
-                        // nanoSerial.print(data[2]);
-                        // nanoSerial.println();
+                // nanoSerial.print(":");
+                // nanoSerial.print(data[0]);
+                // nanoSerial.print(",");
+                // nanoSerial.print(data[1]);
+                // nanoSerial.print(",");
+                // nanoSerial.print(data[2]);
+                // nanoSerial.println();
 
-                        comTmr = millis();
-                }
+                comTmr = millis();
         }
 }
