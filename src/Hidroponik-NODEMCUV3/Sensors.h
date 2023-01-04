@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 
-#define NO_ONEWIRE_
+#define USING_ONEWIRE
 #define NO_PING_
 
 #ifdef USING_PING
@@ -37,6 +37,9 @@
 #define SOUND_VELOCITY 0.034
 #define CM_TO_INCH 0.393701
 
+#define PH_PIN 13
+#define PH_CAL 24.04 - 0.4
+
 struct Sensors {
         void Init();
         void Handler();
@@ -45,6 +48,14 @@ struct Sensors {
         volatile float getDistance(bool __inch = false) {
                 if (!__inch) return distCM;
                 else return distINCH;
+        }
+
+        volatile float getPhValue() {
+                return ph_act;
+        }
+
+        volatile float getPhVolt() {
+                return ph_volt;
         }
 
 #ifdef USING_ONEWIRE
@@ -76,6 +87,12 @@ struct Sensors {
 
         volatile float distCM = 0.0,
                        distINCH = 0.0;
+
+        int buffer_arr[10], temp;
+        unsigned long int avgval;
+
+        volatile float ph_act = 0.0,
+                       ph_volt = 0.0;
 
 #ifdef USING_ONEWIRE
         volatile float tempC, tempF;

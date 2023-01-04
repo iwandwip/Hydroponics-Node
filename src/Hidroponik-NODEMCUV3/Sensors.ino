@@ -24,9 +24,40 @@ void Sensors::Init() {
 #endif
         pinMode(TRIG_PIN, OUTPUT);
         pinMode(ECHO_PIN, INPUT);
+
+        pinMode(PH_PIN, INPUT);
 }
 
 void Sensors::Handler() {
+        if (millis() - sensTmr[2] >= 100) {
+
+                for (int i = 0; i < 10; i++) {
+                        buffer_arr[i] = analogRead(PH_PIN);
+                        delay(30);
+                }
+
+                for (int i = 0; i < 9; i++) {
+                        for (int j = i + 1; j < 10; j++) {
+                                if (buffer_arr[i] > buffer_arr[j]) {
+                                        temp = buffer_arr[i];
+                                        buffer_arr[i] = buffer_arr[j];
+                                        buffer_arr[j] = temp;
+                                }
+                        }
+                }
+
+                avgval = 0;
+
+                for (int i = 2; i < 8; i++) {
+                        avgval += buffer_arr[i];
+                }
+
+                ph_volt = (float)avgval * 5.0 / 1024 / 6;
+                ph_act = -5.70 * ph_volt + PH_CAL;
+
+                sensTmr[2] = millis();
+        }
+
         if (millis() - sensTmr[1] >= 50) {
 
                 digitalWrite(TRIG_PIN, LOW);
@@ -82,6 +113,8 @@ void Sensors::Debug() {
 
                 Serial.println("Dist (CM)   = " + String(distCM));
                 Serial.println("Dist (INCH) = " + String(distINCH));
+                Serial.println("Value (Ph)  = " + String(ph_act));
+                Serial.println("Volt  (V)   = " + String(ph_volt));
 
                 dbgTmr = millis();
         }
