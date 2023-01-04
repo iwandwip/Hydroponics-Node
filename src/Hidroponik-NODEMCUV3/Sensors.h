@@ -37,13 +37,30 @@
 #define SOUND_VELOCITY 0.034
 #define CM_TO_INCH 0.393701
 
-#define PH_PIN 13
+#define PH_PIN 33
 #define PH_CAL 24.04 - 0.4
 
 struct Sensors {
         void Init();
         void Handler();
         void Debug();
+
+        float* getDataToFirebase() {
+                static float data[3];
+                data[0] = distCM;
+                data[1] = ph_act;
+                data[2] = tempC;
+
+                return data;
+        }
+
+        String* getAddressToFirebase() {
+                static String addr[3];
+                addr[0] = "/sens/float/distance";
+                addr[1] = "/sens/float/ph";
+                addr[2] = "/sens/float/temp";
+                return addr;
+        }
 
         volatile float getDistance(bool __inch = false) {
                 if (!__inch) return distCM;

@@ -1,10 +1,10 @@
 #pragma once
 
-#define API_KEY "AIzaSyDPNr0V4GZqh5_K7Rxp6n-cHTM6mJYX8Zk"
-#define DATABASE_URL "https://greenhouse-8e545-default-rtdb.firebaseio.com/"
+#define API_KEY "AIzaSyDaIihlYwBSU5OH27s5pjZxeDa_BQyRnVI"
+#define DATABASE_URL "https://hydroponics-node-default-rtdb.firebaseio.com/"
 
-#define USER_EMAIL "greenhouse@gmail.com"
-#define USER_PASSWORD "greenhouse"
+#define USER_EMAIL "hydroponic@gmail.com"
+#define USER_PASSWORD "hydroponic"
 
 struct Server_t {
         void Init();

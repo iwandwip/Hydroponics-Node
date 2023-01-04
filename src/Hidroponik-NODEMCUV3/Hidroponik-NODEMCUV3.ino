@@ -8,8 +8,8 @@ void Start() {
           "KASTARA GROUP INDONESIA",
           "KASTARA@2022");
         server.waitConnection(500);
-        // server.Login();
-        // server.Init();
+        server.Login();
+        server.Init();
 }
 
 void Stop() {
@@ -24,6 +24,7 @@ void loop() {
         sys.Handler();
         sens.Handler();
         sens.Debug();
-        // server.Handler();
-        // server.sendToFB(buff, addr);
+
+        server.sendToFB(sens.getDataToFirebase(),
+                        sens.getAddressToFirebase());
 }
