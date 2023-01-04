@@ -13,7 +13,6 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 void Server_t::Init() {
-        
 }
 
 void Server_t::Login() {

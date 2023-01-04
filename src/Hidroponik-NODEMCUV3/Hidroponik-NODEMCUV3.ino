@@ -1,9 +1,11 @@
 #include "Sensors.h"
 #include "Servers.h"
+#include "Comms.h"
 #include "Sys.h"
 
 void Start() {
-        sens.Init();
+        // sens.Init();
+        com.Init();
         server.connectToWiFi(
           "KASTARA GROUP INDONESIA",
           "KASTARA@2022");
@@ -22,9 +24,17 @@ void setup() {
 
 void loop() {
         sys.Handler();
-        sens.Handler();
-        sens.Debug();
+        com.Handler();
 
-        server.sendToFB(sens.getDataToFirebase(),
-                        sens.getAddressToFirebase());
+        // float *datPtr = com.getUnoData();
+
+        // Serial.println("distance = " + String(datPtr[0]));
+        // Serial.println("ph_act = " + String(datPtr[1]));
+        // Serial.println("tempC = " + String(datPtr[2]));
+
+        // sens.Handler();
+        // sens.Debug();
+
+        // server.sendToFB(sens.getDataToFirebase(),
+        //                 sens.getAddressToFirebase());
 }

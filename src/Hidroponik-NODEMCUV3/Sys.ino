@@ -11,10 +11,11 @@ void MainSys::Init(void (*StartCallback)(void),
 }
 
 void MainSys::Handler() {
-        // Serial.println("test");
-        // delay(1000);
+        if (millis() - mainTmr >= 1000) {
+                // Serial.println("test");
+                mainTmr = millis();
+        }
 }
 
 void MainSys::Reset() {
-        
 }
