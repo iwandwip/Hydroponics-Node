@@ -2,6 +2,11 @@
 
 #define BAUD 9600
 
+#define RELAY_PIN_1 5
+#define RELAY_PIN_2 6
+#define RELAY_PIN_3 7
+#define RELAY_PIN_4 8
+
 struct MainSys {
         void Init(void (*Start)(void));
 

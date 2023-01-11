@@ -5,13 +5,13 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 
-#define ONE_WIRE_BUS 5
+#define ONE_WIRE_BUS A0
 
 #define TRIG_PIN 2
 #define ECHO_PIN 4
 #define MAX_DIST 200
 
-#define PH_PIN 7
+#define PH_PIN A1
 #define PH_CAL 24.04 - 0.4
 
 struct Sensors {
