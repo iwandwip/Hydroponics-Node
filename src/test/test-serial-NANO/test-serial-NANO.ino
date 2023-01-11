@@ -12,21 +12,22 @@ void setup() {
 }
 
 void loop() {
+        Serial.print("Data ke NODEMCU ");
+        Serial.print("DataTigaBelas");
         Serial.print(":");
-        Serial.print(1);
+        Serial.print("DataEmpatBelas");
         Serial.print(",");
-        Serial.print(2);
-        Serial.print(",");
-        Serial.print(3);
+        Serial.print("DataLimaBelas");
         Serial.println();
 
         espSerial.print(":");
-        espSerial.print(1);
-        espSerial.print(",");
-        espSerial.print(2);
-        espSerial.print(",");
-        espSerial.print(3);
+        espSerial.print("DataTigaBelas");
+        espSerial.print(":");
+        espSerial.print("DataEmpatBelas");
+        espSerial.print(":");
+        espSerial.print("DataLimaBelas");
+        espSerial.print(":");
         espSerial.println();
-        
+
         delay(COMM_INTERVAL);
 }
