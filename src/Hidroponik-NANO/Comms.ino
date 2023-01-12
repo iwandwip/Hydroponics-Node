@@ -12,13 +12,13 @@ void Comms::Init() {
 void Comms::Handler(float data[]) {
         if (millis() - comTmr >= COMM_INTERVAL) {
 
-                Serial.print(":");
-                Serial.print(data[0]);
-                Serial.print(",");
-                Serial.print(data[1]);
-                Serial.print(",");
-                Serial.print(data[2]);
-                Serial.println();
+                espSerial.print(":");
+                espSerial.print(data[0]);
+                espSerial.print(",");
+                espSerial.print(data[1]);
+                espSerial.print(",");
+                espSerial.print(data[2]);
+                espSerial.println();
 
                 comTmr = millis();
         }

@@ -1,18 +1,11 @@
 #pragma once
 
-#include "stdint.h"
+#include "SimpleKalmanFilter.h"
+#include "DallasTemperature.h"
 #include "NewPing.h"
 #include "OneWire.h"
-#include "DallasTemperature.h"
-
-#define ONE_WIRE_BUS A0
-
-#define TRIG_PIN 2
-#define ECHO_PIN 4
-#define MAX_DIST 200
-
-#define PH_PIN A1
-#define PH_CAL 24.04 - 0.4
+#include "stdint.h"
+#include "Pins.h"
 
 struct Sensors {
         void Init();
@@ -41,12 +34,10 @@ struct Sensors {
                 else return tempF;
         }
 
-
-        volatile float getPhVolt() {
-                return ph_volt;
-        }
-
       private:
+        double regressDS18B20(double x);
+        double regressPH(double x);
+
         uint32_t
           u_time[3],
           dbgTmr;

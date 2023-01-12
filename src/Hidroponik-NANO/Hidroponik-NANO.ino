@@ -14,7 +14,7 @@ void setup() {
 void loop() {
         sys.Handler();
         sens.Handler();
-        // sens.Debug();
+        sens.Debug();
 
         com.Handler(
           sens.getSerialDataSend());

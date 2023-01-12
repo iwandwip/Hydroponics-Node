@@ -1,11 +1,8 @@
 #pragma once
 
-#define BAUD 9600
+#include "Pins.h"
 
-#define RELAY_PIN_1 5
-#define RELAY_PIN_2 6
-#define RELAY_PIN_3 7
-#define RELAY_PIN_4 8
+#define BAUD 9600
 
 struct MainSys {
         void Init(void (*Start)(void));

@@ -1,10 +1,9 @@
 #pragma once
 
 #include "SoftwareSerial.h"
+#include "Pins.h"
 
 #define COMM_INTERVAL 1000
-#define COM_RX_PIN 8
-#define COM_TX_PIN 9
 
 struct Comms {
         void Init();
