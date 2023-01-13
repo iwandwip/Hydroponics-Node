@@ -8,6 +8,7 @@ void MainSys::Init(void (*StartCallback)(void)) {
 
         for (uint8_t i = 0; i < 4; i++) {
                 pinMode(pinRelay[i], OUTPUT);
+                digitalWrite(pinRelay[i], HIGH);
         }
 }
 
