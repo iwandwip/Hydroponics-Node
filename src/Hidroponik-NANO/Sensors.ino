@@ -34,8 +34,10 @@ void Sensors::Handler() {
 
         if (millis() - u_time[2] >= PH_SAMPLE_TIME) {
                 for (int i = 0; i < 10; i++) {
-                        buffer_arr[i] = analogRead(PH_PIN);
-                        delay(30);
+                        if (millis() - avgTmr >= 30) {
+                                buffer_arr[i] = analogRead(PH_PIN);
+                                avgTmr = millis();
+                        }
                 }
                 for (int i = 0; i < 9; i++) {
                         for (int j = i + 1; j < 10; j++) {

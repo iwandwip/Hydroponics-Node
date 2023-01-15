@@ -40,7 +40,7 @@ struct Sensors {
 
         uint32_t
           u_time[3],
-          dbgTmr;
+          dbgTmr, avgTmr;
 
         volatile float
           tempC,
