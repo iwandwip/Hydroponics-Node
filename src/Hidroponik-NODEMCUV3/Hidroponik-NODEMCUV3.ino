@@ -22,8 +22,9 @@ void setup() {
 
 void loop() {
         sys.Handler();
-        com.Handler();
-
+        com.Handler(
+          server.getSetPoint());
+        server.Handler();
         server.sendToFB(com.getUnoData(),
                         com.getAddressToFirebase());
 }

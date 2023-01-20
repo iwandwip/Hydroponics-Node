@@ -9,12 +9,12 @@
 #define PH_PIN A0
 #define PH_CAL 21.34 + 4.0
 
-#define RELAY_PIN_1 7
-#define RELAY_PIN_2 8
-#define RELAY_PIN_3 9
-#define RELAY_PIN_4 10
+#define RELAY_PIN_1 A1  // Water Pump Filling Tank
+#define RELAY_PIN_2 A2  // Water Pump Cold
+#define RELAY_PIN_3 A3  // Nyala Terus
+#define RELAY_PIN_4 A4  // Water Heater
 
 #define COM_RX_PIN 2
 #define COM_TX_PIN 3
 
-const uint8_t pinRelay[4] = {RELAY_PIN_1, RELAY_PIN_2, RELAY_PIN_3, RELAY_PIN_4};
+const uint8_t pinRelay[4] = { RELAY_PIN_1, RELAY_PIN_2, RELAY_PIN_3, RELAY_PIN_4 };

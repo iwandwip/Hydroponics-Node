@@ -11,6 +11,8 @@ struct MainSys {
         void Reset();
 
       private:
+        Comms* com_mem_t = &com;
+        Sensors* sens_mem_t = &sens;
         uint32_t mainTmr;
 };
 

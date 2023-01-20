@@ -98,8 +98,8 @@ double Sensors::regressPH(double x) {
 void Sensors::Debug() {
         if (millis() - dbgTmr >= 50) {
                 Serial.print("distance = " + String(distance));
-                Serial.print(" | tempC    = " + String(tempC));
-                Serial.println("| ph_act   = " + String(ph_act));
+                Serial.print(" | tempC = " + String(tempC));
+                Serial.println("| ph_act = " + String(ph_act));
                 dbgTmr = millis();
         }
 }

@@ -6,6 +6,7 @@
 #include "addons/RTDBHelper.h"
 
 #define FIREBASE_UPLOAD_SPEED 2000
+#define FIREBASE_DOWNLOAD_SPEED 4000
 
 Server_t server;
 
@@ -20,11 +21,6 @@ void Server_t::Login() {
         config.api_key = API_KEY;
         config.database_url = DATABASE_URL;
 
-        // if (Firebase.signUp(&config, &auth, "", "")) {
-        // } else {
-        //         Serial.printf("%s\n", config.signer.signupError.message.c_str());
-        // }
-
         auth.user.email = USER_EMAIL;
         auth.user.password = USER_PASSWORD;
 
@@ -36,9 +32,25 @@ void Server_t::Login() {
 }
 
 void Server_t::Handler() {
-        // if (Firebase.ready() && millis() - taskTmr >= 5000) {
-        //         taskTmr = millis();
-        // }
+        static uint32_t gettmr;
+        if (Firebase.ready() && millis() - gettmr >= FIREBASE_DOWNLOAD_SPEED) {
+
+                const char* addr[2] = { SP_DISTANCE, SP_TEMPERATURE };
+                for (uint8_t i = 0; i < 2; i++) {
+                        if (Firebase.RTDB.getString(&fbdo, addr[i])) {
+                                String dat = fbdo.to<String>();
+                                dat.remove(0, 2);
+                                dat.remove(dat.length() - 2, 2);
+                                sp[i] = dat.toDouble();
+                                Serial.print("Get Data ");
+                                Serial.print(i + 1);
+                                Serial.print(" : ");
+                                Serial.println(sp[i]);
+                        }
+                }
+
+                gettmr = millis();
+        }
 }
 
 void Server_t::sendToFB(float dat[], String addr[]) {
@@ -46,7 +58,11 @@ void Server_t::sendToFB(float dat[], String addr[]) {
 
                 for (uint8_t i = 0; i < 3; i++) {
                         if ((*this).setFloatFB(dat[i], addr[i])) {
-                                // Serial.println("Yes");
+                                Serial.print("Data ");
+                                Serial.print(i + 1);
+                                Serial.println(" : Sent");
+                        } else {
+                                Serial.println("Failed to send");
                         }
                 }
 

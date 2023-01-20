@@ -9,7 +9,7 @@ void Comms::Init() {
         nanoSerial.println();
 }
 
-void Comms::Handler() {
+void Comms::Handler(double data_send[]) {
         if (nanoSerial.available()) {
 
                 char rxBuffer[250];
@@ -38,13 +38,11 @@ void Comms::Handler() {
 
         if (millis() - comTmr >= COMM_INTERVAL) {
 
-                // nanoSerial.print(":");
-                // nanoSerial.print(data[0]);
-                // nanoSerial.print(",");
-                // nanoSerial.print(data[1]);
-                // nanoSerial.print(",");
-                // nanoSerial.print(data[2]);
-                // nanoSerial.println();
+                nanoSerial.print(":");
+                nanoSerial.print(data_send[0]);
+                nanoSerial.print(",");
+                nanoSerial.print(data_send[1]);
+                nanoSerial.println();
 
                 comTmr = millis();
         }
