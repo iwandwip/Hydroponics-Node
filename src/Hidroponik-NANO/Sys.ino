@@ -3,12 +3,17 @@
 #include "Sensors.h"
 
 #define TEMP_TOLERANCE 3
+#define ULTRASONIC_MIN_HEIGHT 20
 
 MainSys sys;
 
 void MainSys::Init(void (*StartCallback)(void)) {
         Serial.begin(BAUD);
         StartCallback();
+
+        pinMode(BUZZER_PIN, OUTPUT);
+        pinMode(LED_RED, OUTPUT);
+        pinMode(LED_GREEN, OUTPUT);
 
         for (uint8_t i = 0; i < 4; i++) {
                 pinMode(pinRelay[i], OUTPUT);
@@ -28,7 +33,8 @@ void MainSys::Handler() {
                 digitalWrite(RELAY_PIN_2, LOW);   // Water Cold On
                 digitalWrite(RELAY_PIN_3, LOW);
         }
-        double realDist = sens_mem_t->getDistance() - 20;
+
+        double realDist = sens_mem_t->getDistance() - ULTRASONIC_MIN_HEIGHT;
         if (realDist > com_mem_t->getSpDist()) {
                 digitalWrite(RELAY_PIN_1, LOW);
         } else {

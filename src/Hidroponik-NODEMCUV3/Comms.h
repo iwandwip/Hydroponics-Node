@@ -4,8 +4,8 @@
 
 #define COMM_INTERVAL 1000
 
-#define COM_RX_PIN D6
-#define COM_TX_PIN D7
+#define COM_RX_PIN D7
+#define COM_TX_PIN D6
 
 struct Comms {
         void Init();

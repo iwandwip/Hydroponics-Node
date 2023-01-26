@@ -32,13 +32,14 @@ void Sensors::Handler() {
                 u_time[1] = millis();
         }
 
-        if (millis() - u_time[2] >= PH_SAMPLE_TIME) {
-                for (int i = 0; i < 10; i++) {
-                        if (millis() - avgTmr >= 30) {
-                                buffer_arr[i] = analogRead(PH_PIN);
-                                avgTmr = millis();
-                        }
+        for (int i = 0; i < 10; i++) {
+                unsigned long t = 30;
+                for (static unsigned long e_time; millis() - e_time >= (t); e_time += (t)) {
+                        buffer_arr[i] = analogRead(PH_PIN);
                 }
+        }
+        
+        if (millis() - u_time[2] >= PH_SAMPLE_TIME) {
                 for (int i = 0; i < 9; i++) {
                         for (int j = i + 1; j < 10; j++) {
                                 if (buffer_arr[i] > buffer_arr[j]) {
@@ -52,11 +53,14 @@ void Sensors::Handler() {
                 for (int i = 2; i < 8; i++) {
                         avgval += buffer_arr[i];
                 }
-                ph_volt = (float)avgval * 5.0 / 1024 / 6;
+                ph_volt = (float)avgval * 5.0 / 1024.0 / 6;
                 ph_act = Kf.updateEstimate(
                   regressPH(-5.70 * ph_volt + PH_CAL));
                 u_time[2] = millis();
         }
+
+        float percentAcid = (1 / pow(10, ph_act)) * 100;
+        float percentBase = (1 / pow(10, 14 - ph_act)) * 100;
 }
 
 double Sensors::regressDS18B20(double x) {
@@ -97,9 +101,9 @@ double Sensors::regressPH(double x) {
 
 void Sensors::Debug() {
         if (millis() - dbgTmr >= 50) {
-                Serial.print("distance = " + String(distance));
-                Serial.print(" | tempC = " + String(tempC));
-                Serial.println("| ph_act = " + String(ph_act));
+                Serial.print("dist = " + String(distance));
+                Serial.print(" | temp = " + String(tempC));
+                Serial.println(" | ph = " + String(ph_act));
                 dbgTmr = millis();
         }
 }

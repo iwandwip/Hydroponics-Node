@@ -14,6 +14,10 @@
 #define RELAY_PIN_3 A3  // Nyala Terus
 #define RELAY_PIN_4 A4  // Water Heater
 
+#define BUZZER_PIN 10
+#define LED_RED 11
+#define LED_GREEN 12
+
 #define COM_RX_PIN 2
 #define COM_TX_PIN 3
 
