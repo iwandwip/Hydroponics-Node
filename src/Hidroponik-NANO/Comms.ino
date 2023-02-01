@@ -9,7 +9,7 @@ void Comms::Init() {
         espSerial.println();
 }
 
-void Comms::Handler(float data[]) {
+void Comms::Handler(float data[], uint8_t state[]) {
         if (espSerial.available()) {
 
                 char rxBuffer[250];
@@ -45,6 +45,12 @@ void Comms::Handler(float data[]) {
                 espSerial.print(data[1]);
                 espSerial.print(",");
                 espSerial.print(data[2]);
+                espSerial.print(",");
+                espSerial.print(state[0]);
+                espSerial.print(",");
+                espSerial.print(state[1]);
+                espSerial.print(",");
+                espSerial.print(state[2]);
                 espSerial.println();
 
                 comTmr = millis();

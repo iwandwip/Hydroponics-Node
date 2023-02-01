@@ -27,5 +27,7 @@ void loop() {
         server.Handler();
         server.sendToFB(
           com.getUnoData(),
-          com.getAddressToFirebase());
+          com.getAddressToFirebase(),
+          com.getState(),
+          com.getStateToFirebase());
 }

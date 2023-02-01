@@ -17,5 +17,6 @@ void loop() {
         sens.Debug();
 
         com.Handler(
-          sens.getSerialDataSend());
+          sens.getSerialDataSend(),
+          sys.getState());
 }

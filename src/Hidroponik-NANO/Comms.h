@@ -2,12 +2,13 @@
 
 #include "SoftwareSerial.h"
 #include "Pins.h"
+// #include "Sys.h"
 
 #define COMM_INTERVAL 1000
 
 struct Comms {
         void Init();
-        void Handler(float data[]);
+        void Handler(float data[], uint8_t state[]);
         void Debug();
 
         double getSpDist() {

@@ -15,16 +15,20 @@ struct Server_t {
                            const char* PWD);
         void waitConnection(uint32_t tmr);
         void sendToFB(float dat[],
-                      String addr[]);
+                      String addr[],
+                      uint8_t state[],
+                      String addr_s[]);
         bool setFloatFB(float dat,
                         String addr);
+        bool setIntFB(int dat,
+                      String addr);
         int8_t getStatus();
         void Login();
         void Handler();
         void Debug();
 
         double* getSetPoint() {
-               return sp;
+                return sp;
         }
 
       private:

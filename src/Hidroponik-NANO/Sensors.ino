@@ -4,6 +4,8 @@
 #define DIST_SAMPLE_TIME 50
 #define PH_SAMPLE_TIME 100
 
+#define PH_CAL 21.34 + 2.3 - 2.39  // 21.34 + 4.0
+
 Sensors sens;
 
 OneWire oneWire(ONE_WIRE_BUS);
@@ -38,7 +40,7 @@ void Sensors::Handler() {
                         buffer_arr[i] = analogRead(PH_PIN);
                 }
         }
-        
+
         if (millis() - u_time[2] >= PH_SAMPLE_TIME) {
                 for (int i = 0; i < 9; i++) {
                         for (int j = i + 1; j < 10; j++) {
@@ -54,8 +56,9 @@ void Sensors::Handler() {
                         avgval += buffer_arr[i];
                 }
                 ph_volt = (float)avgval * 5.0 / 1024.0 / 6;
-                ph_act = Kf.updateEstimate(
-                  regressPH(-5.70 * ph_volt + PH_CAL));
+                // ph_act = Kf.updateEstimate(
+                //   regressPH(-5.70 * ph_volt + PH_CAL));
+                ph_act = (-5.70 * ph_volt + PH_CAL);
                 u_time[2] = millis();
         }
 

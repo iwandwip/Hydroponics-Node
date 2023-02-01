@@ -7,7 +7,6 @@
 #define MAX_DIST 500
 
 #define PH_PIN A0
-#define PH_CAL 21.34 + 4.0
 
 #define RELAY_PIN_1 A1  // Water Pump Filling Tank
 #define RELAY_PIN_2 A2  // Water Pump Cold

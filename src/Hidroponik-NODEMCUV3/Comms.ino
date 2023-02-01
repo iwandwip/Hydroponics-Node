@@ -28,12 +28,21 @@ void Comms::Handler(double data_send[]) {
                 rxBuffer[rxBufferPtr] = 0;
                 char *data = rxBuffer;
 
+                // Serial.println(String(rxBuffer));
+
                 data = strchr(data, ':') + 1;
                 (*this).distance = atof(data);
                 data = strchr(data, ',') + 1;
                 (*this).ph_act = atof(data);
                 data = strchr(data, ',') + 1;
                 (*this).tempC = atof(data);
+
+                data = strchr(data, ',') + 1;
+                (*this).heater = atof(data);
+                data = strchr(data, ',') + 1;
+                (*this).cooler = atof(data);
+                data = strchr(data, ',') + 1;
+                (*this).filling = atof(data);
         }
 
         if (millis() - comTmr >= COMM_INTERVAL) {

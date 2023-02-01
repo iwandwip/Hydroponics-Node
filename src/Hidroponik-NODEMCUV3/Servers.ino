@@ -8,6 +8,8 @@
 #define FIREBASE_UPLOAD_SPEED 2000
 #define FIREBASE_DOWNLOAD_SPEED 4000
 
+#define DEBUG
+
 Server_t server;
 
 FirebaseData fbdo;
@@ -42,10 +44,12 @@ void Server_t::Handler() {
                                 dat.remove(0, 2);
                                 dat.remove(dat.length() - 2, 2);
                                 sp[i] = dat.toDouble();
+#ifdef DEBUG
                                 Serial.print("Get Data ");
                                 Serial.print(i + 1);
                                 Serial.print(" : ");
                                 Serial.println(sp[i]);
+#endif
                         }
                 }
 
@@ -53,14 +57,23 @@ void Server_t::Handler() {
         }
 }
 
-void Server_t::sendToFB(float dat[], String addr[]) {
+void Server_t::sendToFB(float dat[], String addr[], uint8_t state[], String addr_s[]) {
         if (Firebase.ready() && millis() - taskTmr >= FIREBASE_UPLOAD_SPEED) {
 
                 for (uint8_t i = 0; i < 3; i++) {
                         if ((*this).setFloatFB(dat[i], addr[i])) {
+#ifdef DEBUG
                                 Serial.print("Data ");
                                 Serial.print(i + 1);
-                                Serial.println(" : Sent");
+                                Serial.println(" : Sent (" + String(dat[i]) + ")");
+#endif
+                        } else {
+                                Serial.println("Failed to send");
+                        }
+                        if ((*this).setIntFB(state[i], addr_s[i])) {
+#ifdef DEBUG
+//
+#endif
                         } else {
                                 Serial.println("Failed to send");
                         }
@@ -72,6 +85,10 @@ void Server_t::sendToFB(float dat[], String addr[]) {
 
 bool Server_t::setFloatFB(float dat, String addr) {
         return Firebase.RTDB.setFloatAsync(&fbdo, (addr), dat) ? 1 : 0;
+}
+
+bool Server_t::setIntFB(int dat, String addr) {
+        return Firebase.RTDB.setIntAsync(&fbdo, (addr), dat) ? 1 : 0;
 }
 
 void Server_t::connectToWiFi(const char* SSID,
