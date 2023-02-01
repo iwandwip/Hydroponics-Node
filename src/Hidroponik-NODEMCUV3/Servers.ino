@@ -72,7 +72,9 @@ void Server_t::sendToFB(float dat[], String addr[], uint8_t state[], String addr
                         }
                         if ((*this).setIntFB(state[i], addr_s[i])) {
 #ifdef DEBUG
-//
+                                // Serial.print("Data ");
+                                // Serial.print(i + 1);
+                                // Serial.println(" : Sent (" + String(dat[i]) + ")");
 #endif
                         } else {
                                 Serial.println("Failed to send");
