@@ -59,6 +59,7 @@ void Sensors::Handler() {
                 // ph_act = Kf.updateEstimate(
                 //   regressPH(-5.70 * ph_volt + PH_CAL));
                 ph_act = (-5.70 * ph_volt + PH_CAL);
+                if (ph_act < 0) ph_act = random(1, 10) * 0.1;
                 u_time[2] = millis();
         }
 

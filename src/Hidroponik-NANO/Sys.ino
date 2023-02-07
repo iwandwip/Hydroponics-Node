@@ -26,7 +26,6 @@ void MainSys::Handler() {
         if (sens_mem_t->getTemperature() < com_mem_t->getSpTemp() - TEMP_TOLERANCE) {
                 digitalWrite(RELAY_PIN_4, LOW);   // Water Heat On
                 digitalWrite(RELAY_PIN_2, HIGH);  // Water Cold Off
-                digitalWrite(RELAY_PIN_3, HIGH);
 
                 // State Info
                 heater = ON;
@@ -36,21 +35,27 @@ void MainSys::Handler() {
         if (sens_mem_t->getTemperature() > com_mem_t->getSpTemp() + TEMP_TOLERANCE) {
                 digitalWrite(RELAY_PIN_4, HIGH);  // Water Heat Off
                 digitalWrite(RELAY_PIN_2, LOW);   // Water Cold On
-                digitalWrite(RELAY_PIN_3, LOW);
 
-                // State Info
+                // State Info2
                 heater = OFF;
                 cooler = ON;
         }
 
-        double realDist = sens_mem_t->getDistance() - ULTRASONIC_MIN_HEIGHT;
-        if (realDist > com_mem_t->getSpDist()) {
+        // double realDist = sens_mem_t->getDistance() - ULTRASONIC_MIN_HEIGHT;
+        if (sens_mem_t->getDistance() > com_mem_t->getSpDist()) {
                 digitalWrite(RELAY_PIN_1, LOW);
                 filling = ON;
         } else {
                 digitalWrite(RELAY_PIN_1, HIGH);
                 filling = OFF;
         }
+
+        digitalWrite(RELAY_PIN_3, LOW);
+
+        // digitalWrite(RELAY_PIN_1, LOW);
+        // digitalWrite(RELAY_PIN_2, LOW);
+        // digitalWrite(RELAY_PIN_3, LOW);
+        // digitalWrite(RELAY_PIN_4, LOW);
 
         // Serial.print("Heater = " + String(heater));
         // Serial.print(" | Cooler = " + String(cooler));

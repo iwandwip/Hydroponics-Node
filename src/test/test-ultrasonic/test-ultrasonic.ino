@@ -1,8 +1,8 @@
 #include <NewPing.h>
 
-#define TRIGGER_PIN 5    
-#define ECHO_PIN 6       
-#define MAX_DISTANCE 500  
+#define TRIGGER_PIN 2    
+#define ECHO_PIN 3       
+#define MAX_DISTANCE 200  
 
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);  
 

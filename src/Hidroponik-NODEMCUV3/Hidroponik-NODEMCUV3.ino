@@ -5,8 +5,8 @@
 void Start() {
         com.Init();
         server.connectToWiFi(
-          "KASTARA GROUP INDONESIA",
-          "KASTARA@2022");
+          "IWAN",
+          "12345678");
         server.waitConnection(500);
         server.Login();
         server.Init();
