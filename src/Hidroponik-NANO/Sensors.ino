@@ -4,6 +4,9 @@
 #define DIST_SAMPLE_TIME 50
 #define PH_SAMPLE_TIME 100
 
+#define DIST_TOLERANCE 3
+#define TEMP_TOLERANCE 1
+
 #define PH_CAL 21.34 + 2.3 - 2.39  // 21.34 + 4.0
 
 Sensors sens;
@@ -20,16 +23,29 @@ void Sensors::Init() {
         pinMode(PH_PIN, INPUT);
 }
 
-void Sensors::Handler() {
+void Sensors::Handler(uint8_t cooler) {
+        // for (uint8_t i = 0; i < 10; i++) {
+        //         unsigned long t = 100;
+        //         for (static unsigned long e_time; millis() - e_time >= (t); e_time += (t)) {
+        //                 int buff = sonar.ping_cm();
+        //                 buffer_dist += buff;
+        //         }
+        // }
+
+        // (*this).distance = buffer_dist / 10;
+
         if (millis() - u_time[0] >= DIST_SAMPLE_TIME) {
-                (*this).distance = sonar.ping_cm();
+                if (sonar.ping_cm() != 0 && sonar.ping_cm() >= DIST_TOLERANCE)
+                        (*this).distance = Kf.updateEstimate(sonar.ping_cm());
                 u_time[0] = millis();
         }
 
         if (millis() - u_time[1] >= TEMP_SAMPLE_TIME) {
                 DS18B20.requestTemperatures();
                 (*this).tempC = regressDS18B20(
-                  DS18B20.getTempCByIndex(0));
+                  DS18B20.getTempCByIndex(0) - TEMP_TOLERANCE);
+                // (*this).tempC = DS18B20.getTempCByIndex(0);
+                // (*this).tempC = Kf.updateEstimate(DS18B20.getTempCByIndex(0));
                 (*this).tempF = DS18B20.getTempFByIndex(0);
                 u_time[1] = millis();
         }
@@ -104,7 +120,7 @@ double Sensors::regressPH(double x) {
 }
 
 void Sensors::Debug() {
-        if (millis() - dbgTmr >= 50) {
+        if (millis() - dbgTmr >= 300) {
                 Serial.print("dist = " + String(distance));
                 Serial.print(" | temp = " + String(tempC));
                 Serial.println(" | ph = " + String(ph_act));

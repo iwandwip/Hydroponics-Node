@@ -9,7 +9,7 @@
 
 struct Sensors {
         void Init();
-        void Handler();
+        void Handler(uint8_t cooler);
         void Debug();
 
         float* getSerialDataSend() {
@@ -46,6 +46,8 @@ struct Sensors {
           tempC,
           tempF,
           distance;
+
+        // float buffer_dist;
 
         int buffer_arr[10], temp;
         unsigned long int avgval;

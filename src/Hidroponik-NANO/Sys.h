@@ -14,6 +14,10 @@ struct MainSys {
         void Handler();
         void Reset();
 
+        uint8_t getCoolerState() {
+                return cooler;
+        }
+
         uint8_t* getState() {
                 static uint8_t data[3];
                 data[0] = heater;

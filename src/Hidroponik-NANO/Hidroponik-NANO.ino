@@ -13,7 +13,8 @@ void setup() {
 
 void loop() {
         sys.Handler();
-        sens.Handler();
+        sens.Handler(
+          sys.getCoolerState());
         sens.Debug();
 
         com.Handler(
